@@ -1,2 +1,2 @@
 # dailyC
-2022_spring TA prepare
+2022_spring self-train
