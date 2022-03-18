@@ -1,6 +1,5 @@
 #include<stdio.h>
 #include<stdlib.h>
-// #include<ctype.h>
 #include<math.h>
 
 struct Node {  
@@ -12,7 +11,7 @@ struct Node {
 int inputNum(char *msg){
     int num;
     while(1){
-        printf("%s", msg);
+        fprintf(stderr, "%s", msg);
         scanf("%d", &num);
         if(num>0)
             return num;
@@ -28,7 +27,7 @@ void create() {
 //   printf("Enter the number of terms:");
   num = inputNum("Enter the number of terms:");
     //   scanf("%d", & num);
-  printf("Enter each term with cof and exp\n");
+  fprintf(stderr, "Enter each term with cof and exp:\n");
   for (i = 0; i < num; i++) {
     t = (struct Node * ) malloc(sizeof(struct Node));  //create new node
     scanf("%d%d", &t->cof, &t->exp);                    //reading  2 data 
@@ -65,7 +64,7 @@ long Eval(struct Node * p, int x) {       //evalution
 int main() {
   create();
   Display(poly);
-  //while();//TODO endless change X valus 
-  printf("%ld\n", Eval(poly, 2));
+  //while(fget!=NULL);//TODO endless change X valus 
+  printf("%ld\n", Eval(poly, 0));
   return 0;
 }
