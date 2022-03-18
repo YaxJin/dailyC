@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
+// #include<ctype.h>
 #include<math.h>
 
 struct Node {  
@@ -8,13 +9,27 @@ struct Node {
   struct Node * next;  
 }* poly = NULL;
 
+int inputNum(char *msg){
+    int num;
+    while(1){
+        printf("%s", msg);
+        scanf("%d", &num);
+        if(num>0)
+            return num;
+        else
+            printf("The number must more than 0!\n");
+    }
+    return num;
+}
+
 void create() {
   struct Node * t, * last = NULL;  //temporary pointer, last pointer
-  int num, i,intput_state;
-  printf("Enter the number of terms:");
-  scanf("%d", & num);
+  int num, i;
+//   printf("Enter the number of terms:");
+  num = inputNum("Enter the number of terms:");
+    //   scanf("%d", & num);
   printf("Enter each term with cof and exp\n");
-  for (i = 0; i < num; i++) {     //loop
+  for (i = 0; i < num; i++) {
     t = (struct Node * ) malloc(sizeof(struct Node));  //create new node
     scanf("%d%d", &t->cof, &t->exp);                    //reading  2 data 
     t-> next = NULL;              //linking each node into linklist
@@ -38,20 +53,6 @@ void Display(struct Node * p) {
   printf("\n");
 }
 
-int inputNum(){
-    int num, check;
-    check = scanf( "%d", &num ) ;
-    while( getchar() != '\n' ){
-       // do nothing
-    }
-    
-    if( check != 2 )
-        printf("failure\n");
-    else
-    printf("valid integer followed by enter key\n");
-    return num;
-}
-
 long Eval(struct Node * p, int x) {       //evalution
   long val = 0;
   while (p) {
@@ -64,6 +65,7 @@ long Eval(struct Node * p, int x) {       //evalution
 int main() {
   create();
   Display(poly);
+  //while();//TODO endless change X valus 
   printf("%ld\n", Eval(poly, 2));
   return 0;
 }
