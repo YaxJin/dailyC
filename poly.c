@@ -16,7 +16,7 @@ int inputNum(char *msg){
         if(num>0)
             return num;
         else
-            printf("The number must more than 0!\n");
+            printf("The number must be greater than zero!\n");
     }
     return num;
 }
@@ -50,7 +50,7 @@ void Display(struct Node * p) {
   printf("\n");
 }
 
-long Eval(struct Node * p, int x) {       //evalution
+long Eval(struct Node * p, int x) {       //evaluate
     long val = 0;
     while (p) {
         val += p -> cof * pow(x, p -> exp);
@@ -63,7 +63,7 @@ int main() {
     create();
     Display(poly);
     int x;
-    while((x=inputNum("please give x a value:")))
+    while((x=inputNum("The unknown number x is:")))
         printf("%ld\n", Eval(poly, x));
     return 0;
 }
