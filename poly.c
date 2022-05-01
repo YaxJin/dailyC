@@ -1,69 +1,62 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include<math.h>
+#include <stdio.h>
 
-struct Node {  
-    int cof;  
-    int exp;      
-    struct Node * next;  
-}* poly = NULL;
+struct student
+{
+    int id;
+    int score;
+};
 
-int inputNum(char *msg){
-    int num;
-    while(1){
-        fprintf(stderr, "%s", msg);
-        scanf("%d", &num);
-        if(num>0)
-            return num;
-        else
-            printf("The number must be greater than zero!\n");
-    }
-    return num;
+void input(struct student list[], int N)
+{
+    for (int i = 0; i < N; i++)
+    {
+        // printf("Enter data for Student #%d\n", i + 1);
+        fprintf(stderr, "Enter ID & score:");
+        scanf("%d %d", &list[i].id,  &list[i].score);
+    } 
 }
 
-void create() {
-    struct Node * t, * last = NULL;  //temporary pointer, last pointer
-    int num, i;
-    num = inputNum("Enter the number of terms:");
-    fprintf(stderr, "Enter each term with cof and exp:\n");
-    for (i = 0; i < num; i++) {
-        t = (struct Node * ) malloc(sizeof(struct Node));   //create new node
-        scanf("%d%d", &t->cof, &t->exp);                    //reading  2 data 
-        t-> next = NULL;    //linking each node into linklist
-        if (poly == NULL)
-            poly = last = t;
-        else {
-            last -> next = t;
-            last = t;
+void display(struct student list[], int N)
+{
+    printf("\nID\tscore\n");
+    for (int i = 0; i < N; i++)
+    {
+        printf("%d\t%d\n", list[i].id, list[i].score);
+    } 
+}
+
+void busort(struct student list[], int N) //bubble sort
+{
+    struct student temp;   
+    for (int i = 0; i < N - 1; i++)
+    {
+        for (int j = 0; j < (N - 1-i); j++)
+        {
+            if (list[j].id > list[j + 1].id)
+            {
+                temp = list[j];
+                list[j] = list[j + 1];
+                list[j + 1] = temp;
+            } 
         }
     }
 }
 
-void Display(struct Node * p) {
-    while (p) {
-        if(!(p -> next))
-            printf("%dx^%d =", p -> cof, p -> exp);   //printing last node
-        else
-            printf("%dx^%d + ", p -> cof, p -> exp);   //printing node
-        p = p -> next;
-    }
-  printf("\n");
-}
+int main()
+{
+    struct student data[40]; //student upperbound
+    int n;
 
-long Eval(struct Node * p, int x) {       //evaluate
-    long val = 0;
-    while (p) {
-        val += p -> cof * pow(x, p -> exp);
-        p = p -> next;
-    }
-    return val;
-}
+    fprintf(stderr, "Number of records you want to key in:");
+    scanf("%d", &n);
 
-int main() {
-    create();
-    Display(poly);
-    int x;
-    while((x=inputNum("The unknown number x is:")))
-        printf("%ld\n", Eval(poly, x));
+    input(data, n);
+    // printf("\nBefore sorting");
+    // display(data, n);
+    busort(data, n);
+    // printf("\nAfter sorting");
+    display(data, n);
+
     return 0;
 }
+
